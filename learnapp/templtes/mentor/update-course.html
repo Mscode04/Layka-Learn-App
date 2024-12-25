@@ -1,0 +1,14 @@
+{% extends 'mentor/mentor-dashbord.html' %}
+{% load static %}
+{% block content %}
+
+<div style="max-width: 700px; margin: 50px auto; padding: 30px; background-color: #f4f4f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <h2 style="text-align: center; color: #5c3f32;">Update Course</h2>
+    <form method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 20px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" style="padding: 10px 20px; background-color: #5c3f32; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Update Course</button>
+    </form>
+</div>
+
+{% endblock %}

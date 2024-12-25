@@ -1,0 +1,88 @@
+{% extends 'manager/manager-dashbord.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Container Box for the Form -->
+<div style="max-width: 700px; margin: 50px auto; padding: 30px; background-color: #f4f4f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+    <h2 style="text-align: center; color: #5c3f32;">Add Course</h2>
+    
+    <!-- Form Starts -->
+    <form method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 20px;">
+        {% csrf_token %}
+
+        <!-- Course Name -->
+        <div class="form-group">
+            <label for="course_name" style="font-size: 16px; color: #333;">Course Name</label>
+            <input type="text" class="form-control" id="course_name" name="course_name" required style="width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <!-- About -->
+        <div class="form-group">
+            <label for="about" style="font-size: 16px; color: #333;">About</label>
+            <textarea class="form-control" id="about" name="about" rows="3" style="width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="description" style="font-size: 16px; color: #333;">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" style="width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;"></textarea>
+        </div>
+
+        <!-- Duration -->
+        <div class="form-group">
+            <label for="duration" style="font-size: 16px; color: #333;">Duration</label>
+            <input type="number" class="form-control" id="duration" name="duration" required style="width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <!-- Price -->
+        <div class="form-group">
+            <label for="price" style="font-size: 16px; color: #333;">Price</label>
+            <input type="number" class="form-control" id="price" name="price" required style="width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <!-- Mentor -->
+        <div class="form-group">
+            <label for="mentor" style="font-size: 16px; color: #333;">Mentor</label>
+            <select class="form-control" id="mentor" name="mentor" style="width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+                <!-- Options here -->
+            </select>
+        </div>
+
+        <!-- Part 1 -->
+        <div class="form-group">
+            <label for="part1" style="font-size: 16px; color: #333;">Part 1</label>
+            <input type="file" class="form-control" id="part1" name="part1" required style="padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <!-- Part 2 -->
+        <div class="form-group">
+            <label for="part2" style="font-size: 16px; color: #333;">Part 2</label>
+            <input type="file" class="form-control" id="part2" name="part2" style="padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <!-- Part 3 -->
+        <div class="form-group">
+            <label for="part3" style="font-size: 16px; color: #333;">Part 3</label>
+            <input type="file" class="form-control" id="part3" name="part3" style="padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <!-- Additional Files -->
+        <div class="form-group">
+            <label for="additional_parts" style="font-size: 16px; color: #333;">Additional Files</label>
+            <input type="file" class="form-control" id="additional_parts" name="additional_parts" multiple style="padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <!-- Thumbnail -->
+        <div class="form-group">
+            <label for="thumbnail" style="font-size: 16px; color: #333;">Thumbnail</label>
+            <input type="file" class="form-control" id="thumbnail" name="thumbnail" style="padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ccc;">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" style="padding: 10px 20px; background-color: #5c3f32; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Add Course</button>
+    </form>
+
+</div>
+
+{% endblock %}

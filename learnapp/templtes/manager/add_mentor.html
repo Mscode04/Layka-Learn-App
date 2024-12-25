@@ -1,0 +1,22 @@
+{% extends 'manager/manager-dashbord.html' %}
+
+{% block content %}
+    <div class="container mt-5 d-flex justify-content-center">
+        <div class="card" style="width: 50%; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div class="card-body">
+                <h1 class="text-center mb-4">Add New Mentor</h1>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <!-- Form Fields -->
+                    {{ form.as_p }}
+
+                    <!-- Submit Button -->
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" style="border-radius: 5px;">Save Mentor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'manager/manager-dashbord.html' %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="card shadow-sm" style="width: 400px; padding: 20px; border-radius: 15px; border: 1px solid #e0e0e0;">
+            <h3 class="text-center mb-4" style="color: #007BFF;">Enroll in Course</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block" style="border-radius: 10px; width: 100%;">Enroll</button>
+            </form>
+            {% if error_message %}
+                <p class="text-center" style="color: red; font-size: 1.1em; margin-top: 10px;">{{ error_message }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

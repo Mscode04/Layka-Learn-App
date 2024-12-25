@@ -1,0 +1,51 @@
+{% extends 'manager/manager-dashbord.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="bg-info text-center" style="border-radius: 10px; padding: 10px;">Student Progress</h1>
+
+<!-- Loop through the courses -->
+{% for course in courses %}
+<div class="course-card card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ course.student_name }} - {{ course.course_name }}</h5>
+
+        <!-- Progress Bar -->
+        <p>Progress: <span id="progress-text-{{ forloop.counter }}">{{ course.progress }}%</span></p>
+        <div class="progress" style="height: 25px;">
+            <div id="progress-bar-{{ forloop.counter }}" class="progress-bar" role="progressbar" style="width: {{ course.progress }}%; background-color: {% if course.progress < 50 %}red{% elif course.progress < 80 %}yellow{% else %}green{% endif %};" aria-valuenow="{{ course.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    // Simulate dynamic progress update for each course
+    {% for course in courses %}
+        (function() {
+            var progress = {{ course.progress }};
+            var progressBar = document.getElementById('progress-bar-{{ forloop.counter }}');
+            var progressText = document.getElementById('progress-text-{{ forloop.counter }}');
+
+            // Function to update the progress bar every second
+            setInterval(function() {
+                if (progress < 100) {
+                    progress += 1;  // Increase progress by 1% every second
+                    progressBar.style.width = progress + '%';
+                    progressText.innerText = progress + '%';
+
+                    // Change color based on progress
+                    if (progress < 50) {
+                        progressBar.style.backgroundColor = 'red';
+                    } else if (progress < 80) {
+                        progressBar.style.backgroundColor = 'yellow';
+                    } else {
+                        progressBar.style.backgroundColor = 'green';
+                    }
+                }
+            }, 1000);  // Update progress every 1 second
+        })();
+    {% endfor %}
+</script>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'manager/manager-dashbord.html' %} <!-- Assuming you have a base template -->
+
+{% block content %}
+    <h2 class="text-center mb-4 mt-5" style="color: #5A9E6F; font-weight: bold;">Rating Details</h2>
+
+    <div class="container">
+        <div class="row">
+            {% for rating in ratings %}
+                <div class="col-md-4 mb-4">
+                    <!-- Card for each Rating -->
+                    <div class="card shadow-sm" style="border-radius: 10px; border: 1px solid #e0e0e0;">
+                        <div class="card-body">
+                            <!-- Mentor name -->
+                            <h5 class="card-title" style="color: #007BFF; font-weight: bold;">Mentor: {{ rating.mentor.mentor }}</h5>
+
+                            <!-- Student name (before the keyword) -->
+                            <p class="card-text"><strong>Student:</strong></p>
+                            <p>{{ rating.student_name.before_keyword }}</p>
+
+                            <!-- Course heading and keyword -->
+                            {% if rating.student_name.keyword %}
+                                <p><strong>Course:</strong></p>
+                                <p><span class="badge bg-info" style="border-radius: 10px;">{{ rating.student_name.keyword }}</span></p>
+                            {% endif %}
+
+                            <!-- Rating score -->
+                            <p class="card-text" style="color: #28a745;"><strong>Rating:</strong> {{ rating.rating }}</p>
+
+                            <!-- Date of rating -->
+                            <p class="card-text" style="font-size: 0.9em; color: #6c757d;"><strong>Date:</strong> {{ rating.created_at }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'manager/manager-dashbord.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Allocate Mentor to {{ user.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="mentor">Select Mentor</label>
+            <select name="mentor" id="mentor" class="form-control">
+                {% for mentor in mentors %}
+                    <option value="{{ mentor.id }}" {% if mentor.id == user.mentor.id %}selected{% endif %}>
+                        Name: {{ mentor.mentor }}     |   Phone: ({{ mentor.phone }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Assign Mentor</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'student/student-dashbord.html' %}
+{% load static %}
+
+{% block content %}
+{% for course in courses %}
+<div class="container mt-5" style="height: 100px;">
+    <h1  style="border-radius: 10px; padding: 20px; background-color: #b3d8ff; color: rgb(0, 0, 0);">The Dream of {{ course.course_name }}</h1>
+
+
+</div>
+
+<div class="row" style="width: 3500px;">
+    <!-- Loop through the courses -->
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <img src="{{ course.thumbnail.url }}" class="card-img-top" alt="Course Thumbnail" style="height: 600px; object-fit: cover;">
+            <div class="card-body">
+                <h5 class="card-title">{{ course.course_name }}</h5>
+                <p><strong>About:</strong> {{ course.about }}</p>
+                <p><strong>Description:</strong> {{ course.description }}</p>
+                <p><strong>Duration:</strong> {{ course.duration }} hours</p>
+                <p><strong>Price:</strong> ${{ course.price }}</p>
+                <p><strong>Mentor:</strong> {{ course.mentor.name }}</p>
+
+                <!-- Display Course Videos -->
+                <h6>Course Videos</h6>
+                {% if course.part1 %}
+                    <div class="video mb-2">
+                        <h6>Part 1</h6>
+                        <video controls class="w-100">
+                            <source src="{{ course.part1.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                {% endif %}
+                {% if course.part2 %}
+                    <div class="video mb-2">
+                        <h6>Part 2</h6>
+                        <video controls class="w-100">
+                            <source src="{{ course.part2.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                {% endif %}
+                {% if course.part3 %}
+                    <div class="video mb-2">
+                        <h6>Part 3</h6>
+                        <video controls class="w-100">
+                            <source src="{{ course.part3.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                {% endif %}
+
+                <!-- Rating Form Below the Course Details -->
+                <h6>Rate this Course</h6>
+                <form method="POST" action="{% url 'mycourse_list_std' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="student_name">Your Name:</label>
+                        <input type="text" class="form-control" name="student_name" required 
+                               value="{{ request.POST.student_name|default:'Yourname    '}}{{ course.course_name }}">
+                    </div>
+
+                    <!-- Rating Selection -->
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <select class="form-control" name="rating" required>
+                            <option value="" disabled selected>Select Rating</option>
+                            {% for i in "12345" %}
+                                <option value="{{ i }}">{{ i }} Star</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary mt-3">Submit Rating</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

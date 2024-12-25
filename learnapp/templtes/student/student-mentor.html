@@ -1,0 +1,45 @@
+{% extends 'student/student-dashbord.html' %}
+
+{% load static %}  <!-- Load the static files tag -->
+
+{% block content %}
+<h2 class="text-center mb-4 mt-5" style="background-color: #b3d8ff; color: rgb(0, 0, 0); padding: 20px; height: 80px; display: flex; justify-content: center; align-items: center; border-radius: 10px;">
+    Mentor List
+</h2>
+
+
+    <div class="row">
+        {% for mentor_profile in mentor_profiles %}
+            <div class="col-md-4 mb-4">
+                <!-- Card for Mentor Profile -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <!-- Display the mentor's profile picture in a round shape -->
+                            {% if mentor_profile.profile_pic %}
+                                <img src="{{ mentor_profile.profile_pic.url }}" alt="Profile Picture" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;" />
+                            {% else %}
+                                <img src="{% static 'default_profile_pic.jpg' %}" alt="Default Profile Picture" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;" />
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Display the mentor's name and additional details -->
+                        <h5 class="card-title mt-3"><strong>Name:</strong> {{ mentor_profile.mentor }}</h5>
+                        <p class="card-text"><strong>Email:</strong> {{ mentor_profile.email }}</p>
+                        <p class="card-text"><strong>Phone:</strong> {{ mentor_profile.phone }}</p>
+                        
+                        <!-- Rating Form -->
+                        <form method="POST" action="{% url 'mentor_list_std' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="mentor_name" value="{{ mentor_profile.mentor.username }}">
+                            
+                            <!-- Rating input field -->
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary btn-sm mt-2">Submit Rating</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

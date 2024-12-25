@@ -1,0 +1,57 @@
+{% extends 'manager/manager-dashbord.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Purchase Students</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" style="background-color: white;border-radius: 10px;border: 2px solid #dee2e6; overflow: hidden; ">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Course</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Amount Paid</th>
+                    <th>Payment Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment.course.course_name }}</td>
+                        <td>{{ payment.full_name }}</td>
+                        <td>{{ payment.email }}</td>
+                        <td>${{ payment.amount_paid }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if payment.payment_status == 'paid' %}
+                                    bg-success
+                                {% else %}
+                                    bg-danger
+                                {% endif %}
+                            ">
+                                {{ payment.get_payment_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ payment.created_at|date:"F d, Y" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">No payment records found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Optional: You can add a card or additional section below -->
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Important Notes</h5>
+        <p class="card-text">All transactions are secured through Stripe payment gateway. Make sure all student information is accurate before proceeding with payments.</p>
+    </div>
+</div>
+
+{% endblock %}
